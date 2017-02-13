@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+IMAGE="vmlellis/mt5"
+
+docker run --rm -it \
+           -v $(pwd)/MetaTrader\ 5:/home/xclient/.wine32/drive_c/Program\ Files/MetaTrader\ 5 \
+           -v /tmp/.X11-unix \
+           -e UID=$(id -u) \
+           -e GID=$(id -g) \
+           -e DISPLAY=$DISPLAY \
+           -v $XAUTHORITY:/home/ubuntu/.Xauthority \
+           --net=host \
+           --privileged \
+           $IMAGE "$@"
